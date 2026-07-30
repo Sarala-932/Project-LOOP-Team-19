@@ -4,6 +4,7 @@ import { useState } from "react";
 import Card from "../../components/ui/Card";
 import PageTitle from "../../components/common/PageTitle";
 import Loader from "../../components/common/Loader";
+import Badge from "../../components/ui/Badge";
 
 function ComponentPlayground() {
 
@@ -23,45 +24,81 @@ function ComponentPlayground() {
         maxWidth: "400px",
       }}
     >
+
       <Card>
-      <PageTitle title="Button Playground" />
-      <Input
-        label="Email Address"
-        placeholder="Enter your email"
-        value={email}
-        onChange={(event) => setEmail(event.target.value)}
-      />
+        <PageTitle title="Input Playground" />
 
-
-      <Button
-        variant="primary"
-        fullWidth
-        onClick={handleClick}
-      >
-        Login
-      </Button>
-
-      <Button
-        variant="secondary"
-        disabled
-      >
-        Register
-      </Button>
-
-      <Button
-        variant="outline"
-      >
-        Cancel
-      </Button>
-
-      <Button
-        loading
-      >
-        Loading
-      </Button>
-      <Loader />
-      
+        <Input
+          label="Email Address"
+          placeholder="Enter your email"
+          value={email}
+          onChange={(event) => setEmail(event.target.value)}
+        />
       </Card>
+
+
+      <Card>
+        <PageTitle title="Button Playground" />
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "12px",
+          }}
+        >
+          <Button
+            variant="primary"
+            fullWidth
+            onClick={handleClick}
+          >
+            Login
+          </Button>
+
+          <Button
+            variant="secondary"
+            disabled
+          >
+            Register
+          </Button>
+
+          <Button
+            variant="outline"
+          >
+            Cancel
+          </Button>
+
+          <Button
+            loading
+          >
+            Loading
+          </Button>
+        </div>
+      </Card>
+
+      <Card>
+        <PageTitle title="Loader Playground" />
+
+        <Loader />
+      </Card>
+
+      <Card>
+        <PageTitle title="Badge Playground" />
+
+        <div
+          style={{
+            display: "flex",
+            gap: "10px",
+            flexWrap: "wrap",
+          }}
+        >
+          <Badge text="Approved" type="success" />
+          <Badge text="Pending" type="warning" />
+          <Badge text="Rejected" type="danger" />
+          <Badge text="Reviewed" type="info" />
+        </div>
+      </Card>
+
+
     </div>
   );
 }
