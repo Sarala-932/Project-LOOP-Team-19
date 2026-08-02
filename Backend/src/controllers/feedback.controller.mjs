@@ -4,6 +4,7 @@ import {
     getFeedbackByIdService,
     updateFeedbackService,
     deleteFeedbackService,
+    bulkUploadFeedbackService,
 } from "../services/feedback.service.mjs";
 
 export const createFeedback = async (req, res) => {
@@ -64,3 +65,20 @@ export const deleteFeedback = async (req, res) => {
         res.status(error.statusCode || 500).json({message: error.message});
     }
 };
+
+export const uploadFeedbacks = async (req, res) => {
+    try {
+        const workspaceId = req.user.workspaceId;
+        
+        if (!req.file || !req.file.buffer) {
+            return res.status(400).json({message: "No CSV file uploaded"});
+        }
+
+        const result = await bulkUploadFeedbackService(workspaceId, req.file.buffer);
+        
+        res.status(200).json(result);
+    } catch (error) {
+        res.status(error.statusCode || 500).json({message: error.message});
+    }
+};
+

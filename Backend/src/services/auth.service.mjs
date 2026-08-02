@@ -24,6 +24,7 @@ export const registerUserService = async (companyName, name, email, password) =>
     }
 
     const workspace = await Workspace.create({name: companyName});
+    
     const passwordHash = await bcrypt.hash(password, 10);
 
     const user = await User.create({
