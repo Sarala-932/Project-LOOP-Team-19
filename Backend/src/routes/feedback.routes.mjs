@@ -5,8 +5,10 @@ import {
     getFeedbackById,
     updateFeedback,
     deleteFeedback,
+    uploadFeedbacks,
 } from "../controllers/feedback.controller.mjs";
 import {protect, restrictTo} from "../middleware/auth.middleware.mjs";
+import upload from "../middleware/upload.middleware.mjs";
 
 const router = express.Router();
 
@@ -17,6 +19,7 @@ router.use(protect);
 /** CREATE - Only Admin & Analyst can add feedback (Viewer is read-only) */
 
 router.post("/", restrictTo("ADMIN", "ANALYST"), createFeedback);
+router.post("/upload", restrictTo("ADMIN", "ANALYST"), upload.single("file"), uploadFeedbacks);
 
 /** READ - All roles (Admin, Analyst, Viewer) can read feedback */
 

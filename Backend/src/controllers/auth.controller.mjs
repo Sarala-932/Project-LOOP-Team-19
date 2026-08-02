@@ -5,7 +5,12 @@ import {accessCookieOpts, refreshCookieOpts} from "./token.controller.mjs";
 export const registerUser = async (req, res) => {
     try {
         const {companyName, name, email, password} = req.body;
-        const {accessToken, refreshToken, user} = await registerUserService(companyName, name, email, password);
+        const {accessToken, refreshToken, user} = await registerUserService(
+            companyName,
+            name,
+            email,
+            password,
+        );
 
         res.cookie("accessToken", accessToken, accessCookieOpts);
         res.cookie("refreshToken", refreshToken, refreshCookieOpts);
@@ -22,9 +27,11 @@ export const registerUser = async (req, res) => {
 export const loginUser = async (req, res) => {
     try {
         const {email, password} = req.body;
+
         const {accessToken, refreshToken, user} = await loginUserService(email, password);
 
         res.cookie("accessToken", accessToken, accessCookieOpts);
+
         res.cookie("refreshToken", refreshToken, refreshCookieOpts);
 
         res.status(200).json({
@@ -39,6 +46,7 @@ export const loginUser = async (req, res) => {
 export const logoutUser = async (req, res) => {
     try {
         const refreshToken = req.cookies?.refreshToken;
+
         await logoutService(refreshToken);
 
         res.clearCookie("accessToken");
